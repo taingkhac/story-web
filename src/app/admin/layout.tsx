@@ -22,20 +22,34 @@ export default async function AdminLayout({
                     <h2 className="text-xl font-bold tracking-tight text-white">Nova Roma</h2>
                     <p className="text-xs text-zinc-400">Admin Dashboard</p>
                 </div>
-                <nav className="space-y-2">
+                <nav className="space-y-1">
                     <Link
                         href="/admin"
                         className="block rounded-md px-3 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-800 hover:text-white"
                     >
-                        Dashboard
+                        Stories
                     </Link>
                     <Link
-                        href="/admin/stories/new"
+                        href="/admin/categories"
                         className="block rounded-md px-3 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-800 hover:text-white"
                     >
-                        New Story
+                        Categories
+                    </Link>
+                    <Link
+                        href="/admin/blog"
+                        className="block rounded-md px-3 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-800 hover:text-white"
+                    >
+                        Blog Posts
                     </Link>
                 </nav>
+                <div className="mt-8 pt-8 border-t border-zinc-800">
+                    <Link
+                        href="/"
+                        className="block rounded-md px-3 py-2 text-sm font-medium text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                    >
+                        Back to Site
+                    </Link>
+                </div>
             </aside>
 
             {/* Main Content */}

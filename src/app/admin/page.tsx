@@ -44,8 +44,8 @@ export default async function AdminDashboard() {
                                     <td className="px-6 py-4 font-medium text-white">{story.title}</td>
                                     <td className="px-6 py-4">
                                         <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${story.is_published
-                                                ? 'bg-green-500/10 text-green-400'
-                                                : 'bg-yellow-500/10 text-yellow-400'
+                                            ? 'bg-green-500/10 text-green-400'
+                                            : 'bg-yellow-500/10 text-yellow-400'
                                             }`}>
                                             {story.is_published ? 'Published' : 'Draft'}
                                         </span>
@@ -58,19 +58,33 @@ export default async function AdminDashboard() {
                                         {new Date(story.created_at).toLocaleDateString()}
                                     </td>
                                     <td className="px-6 py-4 text-right">
-                                        <Link
-                                            href={`/story/${story.slug}`}
-                                            target="_blank"
-                                            className="text-blue-400 hover:text-blue-300 mr-4"
-                                        >
-                                            View
-                                        </Link>
-                                        <Link
-                                            href={`/admin/stories/${story.id}/chapters`}
-                                            className="text-zinc-300 hover:text-white"
-                                        >
-                                            Manage Chapters
-                                        </Link>
+                                        <div className="flex items-center justify-end gap-3 text-xs font-bold uppercase tracking-widest">
+                                            <Link
+                                                href={`/story/${story.slug}`}
+                                                target="_blank"
+                                                className="text-blue-400 hover:text-blue-300"
+                                            >
+                                                View
+                                            </Link>
+                                            <Link
+                                                href={`/admin/stories/${story.id}/edit`}
+                                                className="text-amber-400 hover:text-amber-300"
+                                            >
+                                                Edit
+                                            </Link>
+                                            <Link
+                                                href={`/admin/stories/${story.id}/chapters`}
+                                                className="text-zinc-300 hover:text-white"
+                                            >
+                                                Chapters
+                                            </Link>
+                                            <button
+                                                className="text-red-400 hover:text-red-300"
+                                            // We'll add a proper delete handler later or just link to a delete route/action
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))
