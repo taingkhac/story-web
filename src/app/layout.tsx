@@ -7,6 +7,10 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
     title: 'NovaLore - Discover Epic Stories',
     description: 'The ultimate platform for web novels, fantasy lore, and epic adventures.',
+    icons: {
+        icon: '/icon.png',
+        apple: '/icon.png',
+    }
 }
 
 export default function RootLayout({
