@@ -5,6 +5,8 @@ import NextImage from 'next/image'
 import { ChevronLeft, ChevronRight, List } from 'lucide-react'
 import Header from '@/components/Header'
 
+import { Category } from '@/types'
+
 interface Props {
     params: { slug: string; chapterNumber: string }
 }
@@ -50,7 +52,7 @@ export default async function ChapterPage({ params }: Props) {
         .eq('chapter_number', chapterNum + 1)
         .maybeSingle()
 
-    const storyCategory = Array.isArray(story.categories) ? story.categories[0] : (story.categories as any)
+    const storyCategory = story.categories as unknown as Category
 
     return (
         <main className="min-h-screen bg-gray-50/50">

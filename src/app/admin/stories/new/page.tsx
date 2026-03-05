@@ -91,8 +91,8 @@ export default function NewStoryPage() {
 
             router.push('/admin')
             router.refresh()
-        } catch (err: any) {
-            setError(err.message || 'An error occurred during submission')
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An error occurred during submission')
         } finally {
             setUploading(false)
         }

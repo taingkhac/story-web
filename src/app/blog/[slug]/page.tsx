@@ -1,8 +1,10 @@
 import { createClient } from '@/utils/supabase/server'
 import { notFound } from 'next/navigation'
+import Image from 'next/image'
 import Header from '@/components/Header'
 import Link from 'next/link'
 import { ChevronLeft, Calendar, User, Share2 } from 'lucide-react'
+import { BlogPost } from '@/types'
 
 interface Props {
     params: { slug: string }
@@ -27,11 +29,13 @@ export async function generateMetadata({ params }: Props) {
 export default async function BlogPostPage({ params }: Props) {
     const supabase = createClient()
 
-    const { data: post } = await supabase
+    const { data: rawPost } = await supabase
         .from('blog_posts')
         .select('*')
         .eq('slug', params.slug)
         .maybeSingle()
+
+    const post = rawPost as BlogPost | null
 
     if (!post) notFound()
 
@@ -51,9 +55,10 @@ export default async function BlogPostPage({ params }: Props) {
                 <article className="bg-white rounded-[2.5rem] shadow-xl shadow-blue-900/5 border border-gray-100 overflow-hidden">
                     {post.cover_image_url && (
                         <div className="aspect-[21/9] w-full relative overflow-hidden">
-                            <img
+                            <Image
                                 src={post.cover_image_url}
                                 alt={post.title}
+                                fill
                                 className="object-cover w-full h-full"
                             />
                         </div>

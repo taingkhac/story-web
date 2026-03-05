@@ -1,7 +1,9 @@
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
+import Image from 'next/image'
 import Header from '@/components/Header'
 import { Calendar, User, ChevronRight } from 'lucide-react'
+import { BlogPost } from '@/types'
 
 export const metadata = {
     title: 'NovaLore Blog - Insights, Lore, and Community',
@@ -16,6 +18,8 @@ export default async function BlogPage() {
         .select('*')
         .eq('is_published', true)
         .order('created_at', { ascending: false })
+
+    const blogPosts = posts as BlogPost[] | null
 
     return (
         <main className="min-h-screen bg-white">
@@ -32,49 +36,52 @@ export default async function BlogPage() {
                 </header>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {posts?.map((post) => (
-                        <Link
-                            key={post.id}
-                            href={`/blog/${post.slug}`}
-                            className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-                        >
-                            <div className="aspect-[16/9] overflow-hidden relative bg-gray-100">
-                                {post.cover_image_url && (
-                                    <img
-                                        src={post.cover_image_url}
-                                        alt={post.title}
-                                        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                                    />
-                                )}
-                            </div>
-                            <div className="p-8 flex flex-col flex-1">
-                                <div className="flex items-center gap-4 mb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
-                                    <div className="flex items-center gap-1.5">
-                                        <Calendar size={14} className="text-blue-500" />
-                                        <span>{new Date(post.created_at).toLocaleDateString()}</span>
+                    {blogPosts && blogPosts.length > 0 ? (
+                        blogPosts.map((post) => (
+                            <Link
+                                key={post.id}
+                                href={`/blog/${post.slug}`}
+                                className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                            >
+                                <div className="aspect-[16/9] overflow-hidden relative bg-gray-100">
+                                    {post.cover_image_url && (
+                                        <Image
+                                            src={post.cover_image_url}
+                                            alt={post.title}
+                                            fill
+                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                        />
+                                    )}
+                                </div>
+                                <div className="p-8 flex flex-col flex-1">
+                                    <div className="flex items-center gap-4 mb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                                        <div className="flex items-center gap-1.5">
+                                            <Calendar size={14} className="text-blue-500" />
+                                            <span>{new Date(post.created_at).toLocaleDateString()}</span>
+                                        </div>
+                                        <div className="flex items-center gap-1.5">
+                                            <User size={14} className="text-blue-500" />
+                                            <span>{post.author_name}</span>
+                                        </div>
                                     </div>
-                                    <div className="flex items-center gap-1.5">
-                                        <User size={14} className="text-blue-500" />
-                                        <span>{post.author_name}</span>
+                                    <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                                        {post.title}
+                                    </h2>
+                                    <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-6 font-medium">
+                                        {post.excerpt}
+                                    </p>
+                                    <div className="mt-auto flex items-center gap-2 text-blue-600 font-bold text-sm">
+                                        <span>Read More</span>
+                                        <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
                                     </div>
                                 </div>
-                                <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
-                                    {post.title}
-                                </h2>
-                                <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-6 font-medium">
-                                    {post.excerpt}
-                                </p>
-                                <div className="mt-auto flex items-center gap-2 text-blue-600 font-bold text-sm">
-                                    <span>Read More</span>
-                                    <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
-                                </div>
-                            </div>
-                        </Link>
-                    ) || (
-                            <div className="col-span-full py-20 text-center">
-                                <p className="text-gray-400 font-medium italic">No blog posts found. Check back later!</p>
-                            </div>
-                        )}
+                            </Link>
+                        ))
+                    ) : (
+                        <div className="col-span-full py-20 text-center">
+                            <p className="text-gray-400 font-medium italic">No blog posts found. Check back later!</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </main>

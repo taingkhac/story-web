@@ -4,9 +4,14 @@ import Image from 'next/image'
 import { ChevronRight } from 'lucide-react'
 import Header from '@/components/Header'
 
+import { Story, Category } from '@/types'
+
+interface CategoryWithStories extends Category {
+    stories: Story[]
+}
+
 export default async function HomePage() {
     const supabase = createClient()
-    const pageSize = 10
 
     // Fetch the single newest story for the hero section
     const { data: newestStory } = await supabase
@@ -40,10 +45,10 @@ export default async function HomePage() {
         .order('name')
 
     // Filter categories to only include those with at least one published story
-    const categories = categoriesData?.map(category => ({
+    const categories = (categoriesData as (Category & { stories: Story[] })[])?.map(category => ({
         ...category,
-        stories: category.stories.filter((s: any) => s.is_published).slice(0, 4)
-    })).filter(category => category.stories.length > 0) || []
+        stories: category.stories.filter((s: Story) => s.is_published).slice(0, 4)
+    })).filter(category => category.stories.length > 0) as CategoryWithStories[] || []
 
     return (
         <main className="min-h-screen bg-white">
@@ -123,7 +128,7 @@ export default async function HomePage() {
                                 </div>
 
                                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-                                    {category.stories.map((story: any) => (
+                                    {category.stories.map((story) => (
                                         <Link key={story.id} href={`/story/${story.slug}`} className="group block">
                                             <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100 mb-4 shadow-sm group-hover:shadow-md transition-shadow">
                                                 {story.cover_image_url ? (

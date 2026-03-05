@@ -2,7 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Metadata, ResolvingMetadata } from 'next'
+import { Metadata } from 'next'
 import { ChevronRight } from 'lucide-react'
 import Header from '@/components/Header'
 
@@ -10,9 +10,14 @@ interface Props {
     params: { slug: string }
 }
 
+import { Story, Category } from '@/types'
+
+interface Props {
+    params: { slug: string }
+}
+
 export async function generateMetadata(
-    { params }: Props,
-    parent: ResolvingMetadata
+    { params }: Props
 ): Promise<Metadata> {
     const supabase = createClient()
 
@@ -26,8 +31,8 @@ export async function generateMetadata(
     if (!story) return { title: 'Story Not Found' }
 
     return {
-        title: `${story.title} | Nova Roma`,
-        description: story.summary || `Read ${story.title} on Nova Roma.`,
+        title: `${story.title} | NovaLore`,
+        description: story.summary || `Read ${story.title} on NovaLore.`,
         openGraph: {
             title: story.title,
             description: story.summary || '',
@@ -49,7 +54,7 @@ export default async function StoryReaderPage({ params }: Props) {
         .eq('is_published', true)
         .maybeSingle() // Keep maybeSingle to ensure a single object or null
 
-    const story = rawStory as any // Cast to any to handle potential type issues with categories
+    const story = rawStory as (Story & { categories: Category }) | null
     if (!story) notFound()
 
     const { data: chapters } = await supabase
@@ -70,7 +75,7 @@ export default async function StoryReaderPage({ params }: Props) {
         .order('created_at', { ascending: false })
         .limit(4)
 
-    const storyCategory = Array.isArray(story.categories) ? story.categories[0] : story.categories
+    const storyCategory = story.categories
 
     return (
         <main className="min-h-screen bg-white">
@@ -171,14 +176,14 @@ export default async function StoryReaderPage({ params }: Props) {
                             </h2>
 
                             <div className="space-y-8">
-                                {popularStories?.map((popular: any) => {
-                                    const popularCategory = Array.isArray(popular.categories) ? popular.categories[0] : popular.categories
+                                {(popularStories as unknown as Story[])?.map((popular) => {
+                                    const popularCategory = popular.categories
                                     return (
                                         <Link key={popular.id} href={`/story/${popular.slug}`} className="group flex gap-4">
                                             <div className="relative w-20 h-24 shrink-0 overflow-hidden rounded-xl bg-gray-200 shadow-sm">
-                                                {popular.cover_url && (
+                                                {popular.cover_image_url && (
                                                     <Image
-                                                        src={popular.cover_url}
+                                                        src={popular.cover_image_url}
                                                         alt={popular.title}
                                                         fill
                                                         className="object-cover transition-transform duration-500 group-hover:scale-110"

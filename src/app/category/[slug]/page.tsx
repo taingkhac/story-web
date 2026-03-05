@@ -6,6 +6,8 @@ import Header from '@/components/Header'
 import Pagination from '@/components/Pagination'
 import { ChevronRight } from 'lucide-react'
 
+import { Story } from '@/types'
+
 interface Props {
     params: { slug: string }
     searchParams: { page?: string }
@@ -66,7 +68,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                 {stories && stories.length > 0 ? (
                     <>
                         <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-                            {stories.map((story: any) => (
+                            {(stories as Story[]).map((story) => (
                                 <Link key={story.id} href={`/story/${story.slug}`} className="group block">
                                     <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100 mb-4 shadow-sm group-hover:shadow-md transition-shadow">
                                         {story.cover_image_url ? (
