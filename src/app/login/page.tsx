@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 export default function LoginPage() {
     const [email, setEmail] = useState('')
@@ -64,9 +65,10 @@ export default function LoginPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full rounded-md bg-blue-600 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+                        className="w-full flex items-center justify-center gap-2 rounded-md bg-blue-600 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
                     >
-                        {loading ? 'Signing In...' : 'Sign In'}
+                        {loading && <LoadingSpinner size={16} text="" className="text-white" />}
+                        <span>{loading ? 'Signing In...' : 'Sign In'}</span>
                     </button>
                 </form>
             </div>

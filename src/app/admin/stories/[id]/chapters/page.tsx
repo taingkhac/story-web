@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import Link from 'next/link'
 import { Plus, Edit2, Trash2, ChevronLeft } from 'lucide-react'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 type Chapter = {
     id: string
@@ -68,7 +69,7 @@ export default function ChaptersPage({ params }: { params: { id: string } }) {
         }
     }
 
-    if (loading) return <div className="p-8 text-zinc-400 font-bold uppercase tracking-widest animate-pulse">Loading Chapters...</div>
+    if (loading) return <LoadingSpinner text="Loading Chapters..." />
 
     return (
         <div>

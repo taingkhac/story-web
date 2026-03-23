@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronLeft, Upload } from 'lucide-react'
 import Image from 'next/image'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 const formSchema = z.object({
     title: z.string().min(1, "Title is required"),
@@ -16,7 +17,7 @@ const formSchema = z.object({
     excerpt: z.string().min(1, "Excerpt is required"),
     content: z.string().min(1, "Content is required"),
     author_name: z.string().min(1, "Author name is required"),
-    is_published: z.boolean().default(false),
+    is_published: z.boolean(),
 })
 
 type FormValues = z.infer<typeof formSchema>
@@ -41,7 +42,7 @@ export default function BlogFormPage({ params }: { params?: { id: string } }) {
 
     useEffect(() => {
         if (isEdit && params?.id) {
-            async function fetchPost() {
+            const fetchPost = async () => {
                 try {
                     const { data, error } = await supabase
                         .from('blog_posts')
@@ -134,7 +135,7 @@ export default function BlogFormPage({ params }: { params?: { id: string } }) {
         }
     }
 
-    if (loading) return <div className="p-8 text-zinc-400 font-bold uppercase tracking-widest animate-pulse">Loading Post...</div>
+    if (loading) return <LoadingSpinner />
 
     return (
         <div className="max-w-4xl">
@@ -261,9 +262,10 @@ export default function BlogFormPage({ params }: { params?: { id: string } }) {
                     <button
                         type="submit"
                         disabled={submitting}
-                        className="flex-1 rounded-xl bg-blue-600 px-6 py-4 text-sm font-bold uppercase tracking-widest text-white shadow-xl hover:bg-blue-500 disabled:opacity-50 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                        className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-4 text-sm font-bold uppercase tracking-widest text-white shadow-xl hover:bg-blue-500 disabled:opacity-50 transition-all hover:scale-[1.02] active:scale-[0.98]"
                     >
-                        {submitting ? 'Saving...' : (isEdit ? 'Save Changes' : 'Create Post')}
+                        {submitting && <LoadingSpinner size={16} text="" />}
+                        <span>{submitting ? 'Saving...' : (isEdit ? 'Save Changes' : 'Create Post')}</span>
                     </button>
                 </div>
             </form>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import Link from 'next/link'
 import { Plus, Edit2, Trash2, Eye } from 'lucide-react'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 type BlogPost = {
     id: string
@@ -52,7 +53,7 @@ export default function AdminBlogPage() {
         }
     }
 
-    if (loading) return <div className="p-8 text-zinc-400 font-bold uppercase tracking-widest animate-pulse">Loading Blog Posts...</div>
+    if (loading) return <LoadingSpinner text="Loading Blog Posts..." />
 
     return (
         <div>

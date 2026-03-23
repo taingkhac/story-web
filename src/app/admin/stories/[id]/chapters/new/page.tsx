@@ -7,8 +7,9 @@ import * as z from "zod"
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { ChevronLeft, Upload, Film } from 'lucide-react'
+import { ChevronLeft } from 'lucide-react'
 import Image from 'next/image'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 const formSchema = z.object({
     title: z.string().min(1, "Title is required"),
@@ -36,7 +37,7 @@ export default function ChapterFormPage({ params }: { params: { id: string, chap
 
     useEffect(() => {
         if (isEdit && params.chapterId) {
-            async function fetchChapter() {
+            const fetchChapter = async () => {
                 try {
                     const { data, error } = await supabase
                         .from('chapters')
@@ -61,7 +62,7 @@ export default function ChapterFormPage({ params }: { params: { id: string, chap
             fetchChapter()
         } else {
             // Suggest next chapter number
-            async function suggestNumber() {
+            const suggestNumber = async () => {
                 const { data } = await supabase
                     .from('chapters')
                     .select('chapter_number')
@@ -139,7 +140,7 @@ export default function ChapterFormPage({ params }: { params: { id: string, chap
         }
     }
 
-    if (loading) return <div className="p-8 text-zinc-400 font-bold uppercase tracking-widest animate-pulse">Loading...</div>
+    if (loading) return <LoadingSpinner />
 
     return (
         <div className="max-w-4xl">
@@ -238,9 +239,10 @@ export default function ChapterFormPage({ params }: { params: { id: string, chap
                     <button
                         type="submit"
                         disabled={submitting}
-                        className="flex-1 rounded-2xl bg-blue-600 px-6 py-4 text-sm font-bold uppercase tracking-widest text-white shadow-2xl hover:bg-blue-500 disabled:opacity-50 transition-all"
+                        className="flex-1 flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-6 py-4 text-sm font-bold uppercase tracking-widest text-white shadow-2xl hover:bg-blue-500 disabled:opacity-50 transition-all"
                     >
-                        {submitting ? 'Saving...' : (isEdit ? 'Save Chapter' : 'Add Chapter')}
+                        {submitting && <LoadingSpinner size={16} text="" />}
+                        <span>{submitting ? 'Saving...' : (isEdit ? 'Save Chapter' : 'Add Chapter')}</span>
                     </button>
                 </div>
             </form>

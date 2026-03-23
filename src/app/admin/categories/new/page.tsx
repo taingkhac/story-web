@@ -8,6 +8,7 @@ import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 const formSchema = z.object({
     name: z.string().min(1, "Name is required"),
@@ -30,7 +31,7 @@ export default function CategoryFormPage({ params }: { params?: { id: string } }
 
     useEffect(() => {
         if (isEdit && params?.id) {
-            async function fetchCategory() {
+            const fetchCategory = async () => {
                 try {
                     const { data, error } = await supabase
                         .from('categories')
@@ -80,7 +81,7 @@ export default function CategoryFormPage({ params }: { params?: { id: string } }
         }
     }
 
-    if (loading) return <div className="p-8 text-zinc-400 font-bold uppercase tracking-widest animate-pulse">Loading...</div>
+    if (loading) return <LoadingSpinner />
 
     return (
         <div className="max-w-xl">
@@ -126,9 +127,10 @@ export default function CategoryFormPage({ params }: { params?: { id: string } }
                 <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full rounded-md bg-blue-600 px-4 py-3 text-sm font-bold uppercase tracking-widest text-white shadow-lg hover:bg-blue-500 disabled:opacity-50 transition-all hover:-translate-y-0.5"
+                    className="w-full flex items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-3 text-sm font-bold uppercase tracking-widest text-white shadow-lg hover:bg-blue-500 disabled:opacity-50 transition-all hover:-translate-y-0.5"
                 >
-                    {submitting ? 'Saving...' : (isEdit ? 'Save Changes' : 'Create Category')}
+                    {submitting && <LoadingSpinner size={16} text="" />}
+                    <span>{submitting ? 'Saving...' : (isEdit ? 'Save Changes' : 'Create Category')}</span>
                 </button>
             </form>
         </div>

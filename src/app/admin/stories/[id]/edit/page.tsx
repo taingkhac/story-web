@@ -7,13 +7,14 @@ import * as z from "zod"
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 const formSchema = z.object({
     title: z.string().min(1, "Title is required"),
     slug: z.string().min(1, "Slug is required").regex(/^[a-z0-9-]+$/, "Slug must be lowercase alphanumeric with hyphens"),
     summary: z.string().optional(),
     category_id: z.string().min(1, "Category is required"),
-    is_published: z.boolean().default(false),
+    is_published: z.boolean(),
 })
 
 type FormValues = z.infer<typeof formSchema>
@@ -33,7 +34,7 @@ export default function EditStoryPage({ params }: { params: { id: string } }) {
     const router = useRouter()
     const supabase = createClient()
 
-    const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<FormValues>({
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormValues>({
         resolver: zodResolver(formSchema)
     })
 
@@ -127,7 +128,7 @@ export default function EditStoryPage({ params }: { params: { id: string } }) {
         }
     }
 
-    if (loading) return <div className="p-8 text-zinc-400 font-bold uppercase tracking-widest animate-pulse">Loading Story...</div>
+    if (loading) return <LoadingSpinner text="Loading Story..." />
 
     return (
         <div className="max-w-2xl">
@@ -219,9 +220,10 @@ export default function EditStoryPage({ params }: { params: { id: string } }) {
                     <button
                         type="submit"
                         disabled={uploading}
-                        className="flex-1 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 disabled:opacity-50"
+                        className="flex-1 flex items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 disabled:opacity-50"
                     >
-                        {uploading ? 'Updating...' : 'Save Changes'}
+                        {uploading && <LoadingSpinner size={16} text="" />}
+                        <span>{uploading ? 'Updating...' : 'Save Changes'}</span>
                     </button>
                 </div>
             </form>
