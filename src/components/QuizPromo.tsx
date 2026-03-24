@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
-import { Zap, ArrowRight, HelpCircle } from 'lucide-react'
+import { Zap, ArrowRight } from 'lucide-react'
 
 export default async function QuizPromo({ storyId, category }: { storyId: string, category?: string | null }) {
     const supabase = createClient()
@@ -48,7 +48,7 @@ export default async function QuizPromo({ storyId, category }: { storyId: string
                     Quick Break Challenge
                 </div>
                 <h4 className="text-[15px] sm:text-[17px] font-bold mb-0.5 text-[#111] leading-tight">
-                    "{questionPreview.question_text}"
+                    &quot;{questionPreview.question_text}&quot;
                 </h4>
                 <p className="text-[13px] font-medium text-[#888]">
                     From our complete {quiz.total_questions}-question quiz.

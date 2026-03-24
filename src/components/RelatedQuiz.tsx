@@ -1,7 +1,7 @@
 import { createClient } from '@/utils/supabase/server'
 import Image from 'next/image'
 import Link from 'next/link'
-import { PlayCircle, Users, HelpCircle, Trophy } from 'lucide-react'
+import { HelpCircle } from 'lucide-react'
 
 export default async function RelatedQuiz({ storyId, category }: { storyId: string, category?: string | null }) {
     const supabase = createClient()

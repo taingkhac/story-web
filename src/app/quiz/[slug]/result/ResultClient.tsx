@@ -157,7 +157,7 @@ export default function ResultClient({
                     )}
                     
                     <p className="text-[#333] font-medium leading-relaxed mb-10 max-w-xl mx-auto">
-                        "{tier.result_description}"
+                        &quot;{tier.result_description}&quot;
                     </p>
 
                     {/* Desktop Social Grid / Mobile List */}

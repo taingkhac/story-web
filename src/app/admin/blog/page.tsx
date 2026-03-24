@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import Link from 'next/link'
 import { Plus, Edit2, Trash2, Eye } from 'lucide-react'
@@ -20,7 +20,7 @@ export default function AdminBlogPage() {
     const [error, setError] = useState<string | null>(null)
     const supabase = createClient()
 
-    async function fetchPosts() {
+    const fetchPosts = useCallback(async () => {
         try {
             setLoading(true)
             const { data, error } = await supabase
@@ -35,11 +35,11 @@ export default function AdminBlogPage() {
         } finally {
             setLoading(false)
         }
-    }
+    }, [supabase])
 
     useEffect(() => {
         fetchPosts()
-    }, [supabase])
+    }, [supabase, fetchPosts])
 
     const handleDelete = async (id: string, title: string) => {
         if (!confirm(`Are you sure you want to delete the blog post "${title}"?`)) return
