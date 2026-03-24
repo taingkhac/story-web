@@ -45,20 +45,23 @@ export default function PrivacyPolicyPage() {
                         <li>Respond to your comments and questions.</li>
                         <li>Send you updates about new stories, features, or promotions (only with your consent).</li>
                         <li>Monitor and analyse usage to improve user experience.</li>
-                        <li>Display personalised advertisements through Ezoic and similar services.</li>
+                        <li>Display personalised advertisements through Google AdSense and similar services.</li>
                         <li>Comply with legal obligations and protect against fraudulent activity.</li>
                     </ul>
 
-                    <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">3. Ezoic &amp; Third-Party Advertising</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">3. Google AdSense &amp; Third-Party Advertising</h2>
                     <p className="text-gray-600 leading-relaxed mb-3">
-                        NovaLore uses Ezoic to display advertisements. Ezoic, as a third-party vendor, uses
+                        NovaLore uses Google AdSense to display advertisements. Google, as a third-party vendor, uses
                         cookies to serve ads based on your visit to our website and other sites on the Internet. You may
-                        opt out of personalised advertising or view their data collection practices.
+                        opt out of personalised advertising by visiting{' '}
+                        <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-teal-700 underline">
+                            Google Ads Settings
+                        </a>.
                     </p>
                     <p className="text-gray-600 leading-relaxed">
-                        For more information on how Ezoic uses data when you use our website, please visit{' '}
-                        <a href="https://www.ezoic.com/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-teal-700 underline">
-                            Ezoic&apos;s Privacy Policy
+                        For more information on how Google uses data when you use our website, please visit{' '}
+                        <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" className="text-teal-700 underline">
+                            Google&apos;s Privacy &amp; Terms
                         </a>.
                     </p>
 

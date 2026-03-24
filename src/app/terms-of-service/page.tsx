@@ -64,7 +64,7 @@ export default function TermsOfServicePage() {
 
                     <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">5. Third-Party Advertising</h2>
                     <p className="text-gray-600 leading-relaxed">
-                        NovaLore displays advertisements provided by Ezoic and other third-party advertising
+                        NovaLore displays advertisements provided by Google AdSense and other third-party advertising
                         networks. These advertisements may use cookies and web beacons. By using our website, you
                         acknowledge and consent to the use of advertising technologies as described in our{' '}
                         <Link href="/privacy-policy" className="text-teal-700 underline">Privacy Policy</Link>.
