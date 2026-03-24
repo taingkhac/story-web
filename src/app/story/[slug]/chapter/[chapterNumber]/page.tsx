@@ -4,6 +4,8 @@ import Link from 'next/link'
 import NextImage from 'next/image'
 import { ChevronLeft, ChevronRight, List } from 'lucide-react'
 import Header from '@/components/Header'
+import RelatedQuiz from '@/components/RelatedQuiz'
+import QuizPromo from '@/components/QuizPromo'
 
 import { Category } from '@/types'
 
@@ -58,7 +60,7 @@ export default async function ChapterPage({ params }: Props) {
         <main className="min-h-screen bg-gray-50/50">
             <Header />
 
-            <div className="mx-auto max-w-4xl px-6 py-12 lg:py-20">
+            <div className="mx-auto max-w-4xl px-4 sm:px-6 py-6 lg:py-20">
                 {/* Breadcrumbs */}
                 <nav className="flex items-center gap-2 text-xs font-bold text-gray-400 mb-8 uppercase tracking-widest">
                     <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
@@ -83,7 +85,7 @@ export default async function ChapterPage({ params }: Props) {
 
                         {/* Image Section if available */}
                         {chapter.image_url && (
-                            <div className="mb-12 relative aspect-[16/9] lg:aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl">
+                            <div className="mb-8 relative aspect-[3/2] lg:aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl">
                                 <NextImage
                                     src={chapter.image_url}
                                     alt={chapter.title}
@@ -109,14 +111,14 @@ export default async function ChapterPage({ params }: Props) {
                         </article>
 
                         {/* Bottom Navigation */}
-                        <div className="mt-20 pt-12 border-t border-gray-100 flex flex-wrap items-center justify-between gap-6">
+                        <div className="mt-12 pt-8 border-t border-gray-100 flex flex-wrap items-center justify-between gap-4">
                             {prevChapter ? (
                                 <Link
                                     href={`/story/${story.slug}/chapter/${prevChapter.chapter_number}`}
-                                    className="flex items-center gap-3 px-6 py-3 bg-white border border-gray-200 rounded-2xl text-gray-600 font-bold hover:border-blue-600 hover:text-blue-600 transition-all group"
+                                    className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-gray-600 font-bold hover:border-blue-600 hover:text-blue-600 transition-all group text-sm"
                                 >
-                                    <ChevronLeft size={20} className="transition-transform group-hover:-translate-x-1" />
-                                    <span>Previous Chapter</span>
+                                    <ChevronLeft size={16} className="transition-transform group-hover:-translate-x-1" />
+                                    <span>Prev</span>
                                 </Link>
                             ) : (
                                 <div className="invisible" />
@@ -124,29 +126,44 @@ export default async function ChapterPage({ params }: Props) {
 
                             <Link
                                 href={`/story/${story.slug}`}
-                                className="flex items-center gap-2 px-6 py-3 text-gray-400 hover:text-gray-900 transition-colors font-bold uppercase tracking-widest text-xs"
+                                className="flex items-center gap-1.5 px-4 py-2.5 text-gray-400 hover:text-gray-900 transition-colors font-bold uppercase tracking-widest text-[10px]"
                             >
-                                <List size={18} />
+                                <List size={16} />
                                 <span>Index</span>
                             </Link>
 
                             {nextChapter ? (
                                 <Link
                                     href={`/story/${story.slug}/chapter/${nextChapter.chapter_number}`}
-                                    className="flex items-center gap-3 px-8 py-3 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20 group"
+                                    className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20 group text-sm"
                                 >
-                                    <span>Next Chapter</span>
-                                    <ChevronRight size={20} className="transition-transform group-hover:translate-x-1" />
+                                    <span>Next</span>
+                                    <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
                                 </Link>
                             ) : (
                                 <Link
                                     href="/"
-                                    className="flex items-center gap-3 px-8 py-3 bg-gray-900 text-white rounded-2xl font-bold hover:bg-black transition-all shadow-lg group"
+                                    className="flex items-center gap-2 px-5 py-2.5 bg-gray-900 text-white rounded-xl font-bold hover:bg-black transition-all shadow-lg group text-sm"
                                 >
-                                    <span>End of Story</span>
+                                    <span>Finish</span>
                                 </Link>
                             )}
                         </div>
+
+                        {/* Quiz Promo - Visible on every chapter for mobile-first engagement */}
+                        <div className="mt-8">
+                            <QuizPromo storyId={story.id} category={storyCategory?.slug} />
+                        </div>
+
+                        {/* Direct Linked Quiz (Only on last chapter) */}
+                        {!nextChapter && (
+                            <div className="mt-4 border-t border-gray-100 pt-4">
+                                <RelatedQuiz 
+                                    storyId={story.id} 
+                                    category={storyCategory?.slug} 
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

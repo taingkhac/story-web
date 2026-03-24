@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { ChevronRight } from 'lucide-react'
 import Header from '@/components/Header'
+import RelatedQuiz from '@/components/RelatedQuiz'
 
 interface Props {
     params: { slug: string }
@@ -82,7 +83,7 @@ export default async function StoryReaderPage({ params }: Props) {
             <Header />
 
             {/* Hero Section */}
-            <div className="relative w-full h-[300px] lg:h-[450px]">
+            <div className="relative w-full h-[220px] lg:h-[450px]">
                 {story.cover_image_url ? (
                     <Image
                         src={story.cover_image_url}
@@ -94,23 +95,23 @@ export default async function StoryReaderPage({ params }: Props) {
                 ) : (
                     <div className="w-full h-full bg-gray-100" />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
             </div>
 
             {/* Content Container */}
-            <div className="mx-auto max-w-7xl px-6 relative -mt-32 lg:-mt-48 z-10">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 relative -mt-16 lg:-mt-48 z-10">
                 <div className="lg:flex gap-12">
                     {/* Main Content */}
                     <div className="lg:w-2/3">
-                        <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-xl border border-gray-100">
+                        <div className="bg-white rounded-2xl p-6 lg:p-12 shadow-xl border border-gray-100">
                             {/* Breadcrumbs */}
-                            <nav className="flex items-center gap-2 text-sm font-bold text-gray-400 mb-8">
+                             <nav className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 mb-6">
                                 <Link href="/" className="hover:text-blue-600 transition-colors uppercase tracking-wider">Home</Link>
-                                <ChevronRight size={14} />
+                                <ChevronRight size={12} />
                                 <Link href={`/category/${storyCategory?.slug}`} className="hover:text-blue-600 transition-colors uppercase tracking-wider">
                                     {storyCategory?.name}
                                 </Link>
-                                <ChevronRight size={14} />
+                                <ChevronRight size={12} />
                                 <span className="text-gray-900 line-clamp-1 uppercase tracking-wider">{story.title}</span>
                             </nav>
 
@@ -118,10 +119,10 @@ export default async function StoryReaderPage({ params }: Props) {
                                 {story.title}
                             </h1>
 
-                            <div className="flex items-center gap-4 text-sm font-medium text-gray-500 mb-12">
-                                <span className="text-gray-900 px-3 py-1 bg-gray-100 rounded-md">By Nova Admin</span>
+                            <div className="flex items-center gap-3 text-[12px] font-medium text-gray-500 mb-8">
+                                <span className="text-gray-900 px-2 py-0.5 bg-gray-100 rounded">By Admin</span>
                                 <span>•</span>
-                                <span>{new Date(story.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                                <span>{new Date(story.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                             </div>
 
                             <article className="prose prose-lg max-w-none text-gray-600 mb-16">
@@ -164,6 +165,9 @@ export default async function StoryReaderPage({ params }: Props) {
                                     </p>
                                 )}
                             </div>
+
+                            {/* Related Quiz */}
+                            <RelatedQuiz storyId={story.id} category={storyCategory?.slug} />
                         </div>
                     </div>
 

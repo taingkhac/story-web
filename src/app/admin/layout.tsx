@@ -41,6 +41,18 @@ export default async function AdminLayout({
                     >
                         Blog Posts
                     </Link>
+                    <Link
+                        href="/admin/quizzes"
+                        className="block rounded-md px-3 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-800 hover:text-white"
+                    >
+                        Quizzes
+                    </Link>
+                    <Link
+                        href="/admin/quizzes/stats"
+                        className="block rounded-md px-3 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-800 hover:text-white"
+                    >
+                        Quiz Stats
+                    </Link>
                 </nav>
                 <div className="mt-8 pt-8 border-t border-zinc-800">
                     <Link
