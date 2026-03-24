@@ -61,7 +61,7 @@ export default function PrivacyPolicyPage() {
                     <p className="text-gray-600 leading-relaxed">
                         For more information on how Google uses data when you use our website, please visit{' '}
                         <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" className="text-teal-700 underline">
-                            Google's Privacy &amp; Terms
+                            Google&apos;s Privacy &amp; Terms
                         </a>.
                     </p>
 
@@ -86,7 +86,7 @@ export default function PrivacyPolicyPage() {
                         anonymise it.
                     </p>
 
-                    <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">7. Children's Privacy</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">7. Children&apos;s Privacy</h2>
                     <p className="text-gray-600 leading-relaxed">
                         Our website is not directed to children under the age of 13. We do not knowingly collect personal
                         information from children under 13. If you believe we have accidentally collected such information,

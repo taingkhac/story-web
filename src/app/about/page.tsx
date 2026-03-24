@@ -18,7 +18,7 @@ export default function AboutPage() {
                 <div className="mx-auto max-w-4xl text-center">
                     <h1 className="text-5xl font-extrabold mb-6 leading-tight">About NovaLore</h1>
                     <p className="text-xl text-teal-100 leading-relaxed max-w-2xl mx-auto">
-                        We are a passionate team of readers and writers dedicated to bringing the world's most
+                        We are a passionate team of readers and writers dedicated to bringing the world&apos;s most
                         captivating web novels and epic stories to every screen.
                     </p>
                 </div>
