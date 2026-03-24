@@ -167,7 +167,13 @@ export default async function HomePage() {
 
             <footer className="border-t border-gray-100 bg-gray-50 py-12 mt-12">
                 <div className="mx-auto max-w-7xl px-6 text-center">
-                    <p className="text-gray-500 text-sm font-medium">© 2026 Nova Roma. All rights reserved.</p>
+                    <p className="text-gray-500 text-sm font-medium">© 2026 NovaLore. All rights reserved.</p>
+                    <div className="flex justify-center gap-6 mt-4 text-sm text-gray-400">
+                        <Link href="/about" className="hover:text-gray-600 transition-colors">About Us</Link>
+                        <Link href="/contact" className="hover:text-gray-600 transition-colors">Contact</Link>
+                        <Link href="/privacy-policy" className="hover:text-gray-600 transition-colors">Privacy Policy</Link>
+                        <Link href="/terms-of-service" className="hover:text-gray-600 transition-colors">Terms of Service</Link>
+                    </div>
                 </div>
             </footer>
         </main>

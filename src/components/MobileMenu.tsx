@@ -152,12 +152,32 @@ export default function MobileMenu({ categories }: MobileMenuProps) {
                             >
                                 Blog
                             </Link>
+
+                            <Link
+                                href="/about"
+                                onClick={() => setIsOpen(false)}
+                                className="block py-5 text-xl font-extrabold text-gray-900 border-b border-gray-50 hover:text-blue-600"
+                            >
+                                About
+                            </Link>
+
+                            <Link
+                                href="/contact"
+                                onClick={() => setIsOpen(false)}
+                                className="block py-5 text-xl font-extrabold text-gray-900 border-b border-gray-50 hover:text-blue-600"
+                            >
+                                Contact
+                            </Link>
                         </div>
                     </div>
 
                     {/* Footer in Drawer */}
                     <div className="p-8 border-t border-gray-50 bg-gray-50/50">
                         <p className="text-gray-400 text-sm font-medium">© 2026 NovaLore</p>
+                        <div className="flex gap-4 mt-3">
+                            <Link href="/privacy-policy" onClick={() => setIsOpen(false)} className="text-xs text-gray-400 hover:text-gray-600 transition-colors">Privacy Policy</Link>
+                            <Link href="/terms-of-service" onClick={() => setIsOpen(false)} className="text-xs text-gray-400 hover:text-gray-600 transition-colors">Terms of Service</Link>
+                        </div>
                     </div>
                 </div>
             </div>

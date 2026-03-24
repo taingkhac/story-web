@@ -60,6 +60,8 @@ export default async function Header() {
                     </div>
 
                     <Link href="/blog" className="hover:text-blue-500 transition-colors">Blog</Link>
+                    <Link href="/about" className="hover:text-blue-500 transition-colors">About</Link>
+                    <Link href="/contact" className="hover:text-blue-500 transition-colors">Contact</Link>
                 </nav>
 
                 <div className="flex items-center gap-4">
