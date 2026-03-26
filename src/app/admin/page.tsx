@@ -33,6 +33,7 @@ export default async function AdminDashboard() {
                             <th className="px-6 py-4 font-medium">Title</th>
                             <th className="px-6 py-4 font-medium">Status</th>
                             <th className="px-6 py-4 font-medium">Chapters</th>
+                            <th className="px-6 py-4 font-medium">Views</th>
                             <th className="px-6 py-4 font-medium">Created At</th>
                             <th className="px-6 py-4 font-medium text-right">Actions</th>
                         </tr>
@@ -53,6 +54,9 @@ export default async function AdminDashboard() {
                                     <td className="px-6 py-4">
                                         {/* Supabase returns count as an array with one item for related tables when using count */}
                                         {story.chapters[0]?.count || 0}
+                                    </td>
+                                    <td className="px-6 py-4 font-medium text-white">
+                                        {story.views || 0}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         {new Date(story.created_at).toLocaleDateString()}

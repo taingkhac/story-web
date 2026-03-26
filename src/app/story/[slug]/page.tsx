@@ -6,6 +6,7 @@ import { Metadata } from 'next'
 import { ChevronRight } from 'lucide-react'
 import Header from '@/components/Header'
 import RelatedQuiz from '@/components/RelatedQuiz'
+import ViewTracker from '@/components/ViewTracker'
 
 interface Props {
     params: { slug: string }
@@ -80,6 +81,7 @@ export default async function StoryReaderPage({ params }: Props) {
 
     return (
         <main className="min-h-screen bg-white">
+            <ViewTracker storyId={story.id} />
             <Header />
 
             {/* Hero Section */}

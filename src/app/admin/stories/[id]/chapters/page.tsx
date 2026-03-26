@@ -10,6 +10,7 @@ type Chapter = {
     id: string
     title: string
     chapter_number: number
+    views: number
     created_at: string
 }
 
@@ -40,7 +41,7 @@ export default function ChaptersPage({ params }: { params: { id: string } }) {
             // Fetch chapters
             const { data, error } = await supabase
                 .from('chapters')
-                .select('id, title, chapter_number, created_at')
+                .select('id, title, chapter_number, views, created_at')
                 .eq('story_id', params.id)
                 .order('chapter_number', { ascending: true })
 
@@ -107,6 +108,7 @@ export default function ChaptersPage({ params }: { params: { id: string } }) {
                         <tr>
                             <th className="px-8 py-5">#</th>
                             <th className="px-8 py-5">Title</th>
+                            <th className="px-8 py-5">Views</th>
                             <th className="px-8 py-5">Date</th>
                             <th className="px-8 py-5 text-right">Actions</th>
                         </tr>
@@ -120,6 +122,9 @@ export default function ChaptersPage({ params }: { params: { id: string } }) {
                                     </td>
                                     <td className="px-8 py-5 font-bold text-white uppercase tracking-wider text-xs">
                                         {chapter.title}
+                                    </td>
+                                    <td className="px-8 py-5 font-bold text-blue-400">
+                                        {chapter.views || 0}
                                     </td>
                                     <td className="px-8 py-5 whitespace-nowrap text-zinc-500 text-xs">
                                         {new Date(chapter.created_at).toLocaleDateString()}

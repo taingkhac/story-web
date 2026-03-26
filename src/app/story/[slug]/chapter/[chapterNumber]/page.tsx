@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight, List } from 'lucide-react'
 import Header from '@/components/Header'
 import RelatedQuiz from '@/components/RelatedQuiz'
 import QuizPromo from '@/components/QuizPromo'
+import ViewTracker from '@/components/ViewTracker'
 
 import { Category } from '@/types'
 
@@ -58,6 +59,7 @@ export default async function ChapterPage({ params }: Props) {
 
     return (
         <main className="min-h-screen bg-gray-50/50">
+            <ViewTracker chapterId={chapter.id} />
             <Header />
 
             <div className="mx-auto max-w-4xl px-4 sm:px-6 py-6 lg:py-20">
